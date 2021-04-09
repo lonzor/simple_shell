@@ -5,13 +5,13 @@ char **tokenizer(char *str)
 	char *token;
 	int count = 0;
 	char **toks;
-	char *delim = "' '";
+	char *delim = " \n";
 
 	token = strtok(str, delim);
 	toks = malloc(sizeof(char *) * 1024);
 	if (toks == NULL)
 		return (NULL);
-	while (token != NULL);
+	while (token != NULL)
 	{
 		toks[count] = _strdup(token);
 		token = strtok(NULL, delim);
