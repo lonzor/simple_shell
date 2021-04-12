@@ -22,26 +22,26 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 		/* how are we going to search for that? */
 
 		/* research stat() */
-		
+		/* we might be able to put stat() in a seperat function */
 		child_pid = fork();
-		if (child_pid == -1)
-		{
-			perror("Error:");
-			return (1);
+                if (child_pid == -1)
+                {	
+                        perror("Error:");
+                        return (1);
+                }
+                if (child_pid == 0)
+                {
+                        /* cmnds  has to be _strcmp to a command in /bin */
+                        /* do the execve thing on what was matched */
+                        execve(cmnds[0], cmnds, NULL);
+                        /* printf("%s\n", cmnds[0]); */
+                        printf("got to child\n");
+                }
+                else
+                {
+                        printf("waiting\n");
+                        wait(&status);
 		}
-		if (child_pid == 0)
-		{
-			/* cmnds  has to be _strcmp to a command in /bin */
-			/* do the execve thing on what was matched */
-			execve(cmnds[0], cmnds, NULL);
-			/* printf("%s\n", cmnds[0]); */
-			printf("got to child\n");
-		}
-		else
-		{
-			printf("waiting\n");
-			wait(&status);
-		} 
 	}
 	return (0);
 }

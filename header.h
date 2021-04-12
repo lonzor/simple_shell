@@ -3,7 +3,11 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <string.h>
+
+/* global variables */
+extern char **environ;
 
 /* prototypes */
 char *_strdup(char *str);
