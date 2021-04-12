@@ -1,6 +1,6 @@
 #include "header.h"
 
-char **tokenizer(char *str)
+char **tokenizer(char *str, char *delim)
 {
 	char *token;
 	int count = 0;
@@ -11,6 +11,7 @@ char **tokenizer(char *str)
 	toks = malloc(sizeof(char *) * 1024);
 	if (toks == NULL)
 		return (NULL);
+
 	while (token != NULL)
 	{
 		toks[count] = _strdup(token);

@@ -6,18 +6,23 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 	pid_t child_pid;
 	size_t bufsize = 0;
 	int i_mode = isatty(STDIN_FILENO), status;
+	char *delim = " /n:"
 
 	while(i_mode)
 	{
 		if (i_mode == 1)
 			write(STDOUT_FILENO, "shellie$ ", 9);
 		if(getline(&input, &bufsize, stdin) == EOF)
-			printf("%s", input);
+			break;
 
 		/* this is where we call our tokenizer function */
-		cmnds = tokenizer(input);
-		/* printf("%s\n", cmnds[0]); */
-		/* cmnds will be used to search for the search 
+		cmnds = tokenizer(input, " \n");
+
+		/* "ls -l" */
+
+		cmnds = pathhandle(cmnds[0]);
+
+		/* cmnds will be used to search for the search
 		for the shell command to execute in execve */
 		/* how are we going to search for that? */
 
@@ -25,7 +30,7 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 		/* we might be able to put stat() in a seperat function */
 		child_pid = fork();
                 if (child_pid == -1)
-                {	
+                {
                         perror("Error:");
                         return (1);
                 }

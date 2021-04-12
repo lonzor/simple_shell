@@ -12,3 +12,5 @@ extern char **environ;
 /* prototypes */
 char *_strdup(char *str);
 char **tokenizer(char *str);
+char *_getenv(char *name);
+char *_strstr(char *haystack, char *needle);
