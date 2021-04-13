@@ -14,6 +14,17 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 		if(getline(&input, &bufsize, stdin) == EOF)
 			break;
 
+		if (_strcmp(input, "env\n") == 0)
+		{
+			/*free here */
+			printenv();
+			continue;
+		}
+		if (_strcmp(input, "exit\n") == 0)
+		{
+			/* free here */
+			break;
+		}
 		/* this is where we call our tokenizer function */
 		cmnds = tokenizer(input, " \n");
 

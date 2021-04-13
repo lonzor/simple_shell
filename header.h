@@ -1,3 +1,6 @@
+#ifndef HEADER_H
+#define HEADER_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -13,6 +16,9 @@ extern char **environ;
 char *_strdup(char *str);
 char **tokenizer(char *str, char *delim);
 char *_getenv(char *name);
-char *_strstr(char *haystack, char *needle);
 int _strlen(char *s);
 int _strncmp(const char *s1, const char *s2, int n);
+int _strcmp(char *s1, char *s2);
+int printenv(void);
+
+#endif
