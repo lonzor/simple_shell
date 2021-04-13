@@ -22,22 +22,57 @@ int _strlen(char *s)
  **/
 int _strcmp(char *s1, char *s2)
 {
-	while (*s1)
+	if (s1 == NULL || s2 == NULL)
+		return (1);
+	while (*s1 || *s2)
 	{
 		if (*s1 != *s2)
-			break;
+			return (*s1 - *s2);
 		s1++;
 		s2++;
 	}
-	return (*s1 - *s2);
-}
-int _strncmp(const char *s1, const char *s2, int n)
-{
-	int i;
-	for (i = 0; s1[i] && s2[i] && i < n; i++)
-	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
-	}
 	return (0);
 }
+/**
+ */
+char *_strncpy(char *dest, char *src, int n)
+{
+	int i;
+
+	for (i = 0; i < n && src[i] != '\0'; i++)
+		dest[i] = src[i];
+	dest[i] = '\0';
+	return (dest);
+}
+
+char *_strcat(char *dest, char *src)
+{
+	char *str_ret = dest;
+
+	if ((dest != '\0') && (src != '\0'))
+	{
+		while (*dest != '\0')
+		{
+			dest++;
+		}
+		while (*src != '\0')
+		{
+			*dest++ = *src++;
+		}
+		*dest = '\0';
+	}
+	return (str_ret);
+}
+/**
+ */
+char *_strcpy(char *dest, char *src)
+{
+	int i;
+	int k = _strlen(src);
+
+	for (i = 0; i <= k; i++)
+		dest[i] = src[i];
+	return (dest);
+}
+
+/*strcat / strncpy / strcat3*/

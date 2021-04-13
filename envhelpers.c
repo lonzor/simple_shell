@@ -1,22 +1,26 @@
 #include "header.h"
 /**
- *
- *
- *
- *
+ * printenv - funciton name, prints current envrionment
+ * Return: returns to function after writing
  */
 int printenv(void)
 {
-	unsigned int i;
-	i = 0;
+	unsigned int i = 0;
+
 	while (environ[i] != NULL)
 	{
-		write(STDOUT_FILENO, environ[i],_strlen(environ[i]));
+		write(STDOUT_FILENO, environ[i], _strlen(environ[i]));
 		i++;
 		write(STDOUT_FILENO, "\n", 1);
 	}
 	return (0);
 }
+/**
+ * _getenv - funtion name, currently unused, here for PATH
+ * @name: always "PATH", only use so far
+ * Return: returns path, l + 1 removes PATH=, for correct output
+ */
+
 char *_getenv(char *name)
 {
 	int i = 0;
@@ -27,7 +31,9 @@ char *_getenv(char *name)
 	{
 		i++;
 	}
-	path = _strdup(environ[i]);
+	path = _strdup(environ[i] + l + 1);
+	if (path == NULL)
+		return (NULL);
 
-	return (path + l + 1);
+	return (path);
 }

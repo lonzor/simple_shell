@@ -14,11 +14,22 @@ extern char **environ;
 
 /* prototypes */
 char *_strdup(char *str);
-char **tokenizer(char *str, char *delim);
+char **tokenizer(char *str, char *delim, int ind);
 char *_getenv(char *name);
 int _strlen(char *s);
-int _strncmp(const char *s1, const char *s2, int n);
 int _strcmp(char *s1, char *s2);
 int printenv(void);
+char *_strncpy(char *dest, char *src, int n);
+char *_strcpy(char *dest, char *src);
+char *_strcat(char *dest, char *src);
+char *_strcat3(char *dest, char *middle, char *src);
+char *_realloc(char* ptr, unsigned int old_size, unsigned int new_size);
+char *checkpath(char *str);
+int fullpath(char **path, char**input);
+void freetokens(char **toks);
+char *pathhandle(char **input);
+size_t countword(char *str, char delim);
+int _strncmp(const char *s1, const char *s2, int n);
+void executecmd(char **cmnds, char *path, char *input);
 
 #endif
