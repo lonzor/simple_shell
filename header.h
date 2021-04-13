@@ -15,3 +15,4 @@ char **tokenizer(char *str, char *delim);
 char *_getenv(char *name);
 char *_strstr(char *haystack, char *needle);
 int _strlen(char *s);
+int _strncmp(const char *s1, const char *s2, int n);

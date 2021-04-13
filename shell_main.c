@@ -17,7 +17,7 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 		/* this is where we call our tokenizer function */
 		cmnds = tokenizer(input, " \n");
 
-		/* "bin/ls -l" */
+
 /*		if (cmnds[0][0] != '/')
 		cmnds[0] = pathhandle(cmnds[0]); */
 
@@ -38,12 +38,9 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
                         /* cmnds  has to be _strcmp to a command in /bin */
                         /* do the execve thing on what was matched */
                         execve(cmnds[0], cmnds, NULL);
-                        /* printf("%s\n", cmnds[0]); */
-                        printf("got to child\n");
                 }
                 else
                 {
-                        printf("waiting\n");
                         wait(&status);
 		}
 	}

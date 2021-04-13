@@ -13,17 +13,11 @@ char **pathhandle(char *input)
 	ptok = tokenizer(path, ":");
 	/* store tokens in ptok*/
 
-	if (stat(path[i]) == 0)
+	while (ptok[i])
+	{
+		i++;
+	}
 
-/*        while (path != NULL)
-        {
-                ptok[i] = _strdup(path);
-                path = strtok(NULL, delim);
-                count++;
-        }
-*/
-
-	if (input == ar_p)
 /* stat should check each of PATH's token for ls? */
 	/* might could use linked lists, and each token can check struct, point to function */
 		return(ptok);
@@ -43,5 +37,21 @@ char *_getenv(char *name)
 	}
 	path = _strdup(environ[i]);
 
-	return (path);
+	return (path + length + 1);
+}
+/**
+ * _strncmp - compares two strins to n bytes
+ * @s1: first string
+ * @s2: second string
+ * @n: number of bytes to check
+ * Return: int
+ */
+int _strncmp(const char *s1, const char *s2, int n)
+{
+	int i;
+	for (i = 0; s1[i] && s2[i] && i < n; i++)
+	{
+		if (s1[i] != s2[i])
+			return (s1[i] - s2[i]);
+	}
 }
