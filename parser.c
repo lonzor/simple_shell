@@ -5,7 +5,6 @@ char **tokenizer(char *str, char *delim)
 	char *token;
 	int count = 0;
 	char **toks;
-	char *delim = " \n";
 
 	token = strtok(str, delim);
 	toks = malloc(sizeof(char *) * 1024);
