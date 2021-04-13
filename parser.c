@@ -1,5 +1,10 @@
 #include "header.h"
-
+/**
+ * tokenizer - tokenizes a string given by the delimiters given
+ * @str: string given to tokenize
+ * @delim: delimiters given to tokenize string with
+ * Return: returns input as tokens for use
+ */
 char **tokenizer(char *str, char *delim)
 {
 	char *token;
