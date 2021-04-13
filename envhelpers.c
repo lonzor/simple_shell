@@ -31,7 +31,9 @@ char *_getenv(char *name)
 	{
 		i++;
 	}
-	path = _strdup(environ[i]);
+	path = _strdup(environ[i] + l + 1);
+	if (path == NULL)
+		return (NULL);
 
-	return (path + l + 1);
+	return (path);
 }

@@ -5,24 +5,34 @@
  * @delim: delimiters given to tokenize string with
  * Return: returns input as tokens for use
  */
-char **tokenizer(char *str, char *delim)
+char **tokenizer(char *str, char *delim, int ind)
 {
-	char *token;
-	int count = 0;
-	char **toks;
+	char *token = NULL;
+	int i = 0, len = 0;
+	char **toks = NULL;
+	size_t count = 0;
 
-	token = strtok(str, delim);
-	toks = malloc(sizeof(char *) * 1024);
+	len = _strlen(str);
+	if (ind == 0)
+		str[len - 1] = '\0';
+	count = countword(str, delim[0]);
+	toks = malloc(sizeof(char *) * (count + 1));
 	if (toks == NULL)
 		return (NULL);
+	token = strtok(str, delim);
 
 	while (token != NULL)
 	{
-		toks[count] = _strdup(token);
+		toks[i] = _strdup(token);
+		if (toks[i] == NULL)
+		{
+			freetokens(toks);
+			return (NULL);
+		}
 		token = strtok(NULL, delim);
-		count++;
+		i++;
 	}
-	toks[count] = token;
+	toks[i] = token;
 	return (toks);
 }
 

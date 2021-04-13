@@ -7,10 +7,9 @@
  */
 int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 {
-	char *input = NULL, **cmnds;
-	pid_t child_pid;
+	char *input = NULL, **cmnds, *path = NULL;
 	size_t bufsize = 0;
-	int i_mode = isatty(STDIN_FILENO), status;
+	int i_mode = isatty(STDIN_FILENO);
 
 	while (i_mode)
 	{
@@ -18,31 +17,29 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 			write(STDOUT_FILENO, "shellie$ ", 9);
 		if (getline(&input, &bufsize, stdin) == EOF)
 			break;
-		if (_strcmp(input, "env\n") == 0)
+		if (input == NULL)
+			exit(0);
+		if (_strcmp(input, "env\n\0") == 0)
 		{
 			/*free here */
 			printenv();
 			continue;
 		}
-		if (_strcmp(input, "exit\n") == 0)
+		if (_strcmp(input, "exit\n\0") == 0)
 		{
 			/* free here */
 			break;
 		}
 		/* this is where we call our tokenizer function */
-		cmnds = tokenizer(input, " \n");
+		cmnds = tokenizer(input, " ", 0);
 /* cmnds will be used to search for the shell command to execute in execve */
 /* how are we going to search for that? */
-		child_pid = fork();
-		if (child_pid == -1)
-		{
-			perror("Error:");
-			return (1);
-		}
-		if (child_pid == 0)
-			execve(cmnds[0], cmnds, NULL);
-		else
-			wait(&status);
+		path = pathhandle(cmnds);
+		executecmd(cmnds, path, input);
+		freetokens(cmnds);
+		free(input);
+		input = NULL;
 	}
+	free(input);
 	return (0);
 }
