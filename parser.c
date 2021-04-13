@@ -1,17 +1,17 @@
 #include "header.h"
 
-char **tokenizer(char *str)
+char **tokenizer(char *str, char *delim)
 {
 	char *token;
 	int count = 0;
 	char **toks;
-	char *delim = " :'\n''\t''\r'' ''-'";
 
 	token = strtok(str, delim);
 	toks = malloc(sizeof(char *) * 1024);
 	if (toks == NULL)
 		return (NULL);
-	while (token != NULL);
+
+	while (token != NULL)
 	{
 		toks[count] = _strdup(token);
 		token = strtok(NULL, delim);
