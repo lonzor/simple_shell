@@ -1,7 +1,7 @@
 #include "header.h"
 /**
- * printenv - funciton name, prints current envrionment
- * Return: returns to function after writing
+ * printenv - prints envrionment
+ * Return: 0, prints then exits function to main
  */
 int printenv(void)
 {
@@ -16,7 +16,7 @@ int printenv(void)
 	return (0);
 }
 /**
- * _getenv - funtion name, currently unused, here for PATH
+ * _getenv - gets PATH variable after the equal sign
  * @name: always "PATH", only use so far
  * Return: returns path, l + 1 removes PATH=, for correct output
  */
@@ -31,7 +31,7 @@ char *_getenv(char *name)
 	{
 		i++;
 	}
-	path = _strdup(environ[i] + l + 1);
+	path = _strdup(environ[i] + l + 1);/*dupes PATH var string for safety*/
 	if (path == NULL)
 		return (NULL);
 
