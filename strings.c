@@ -34,6 +34,11 @@ int _strcmp(char *s1, char *s2)
 	return (0);
 }
 /**
+ * _strncpy - string copy function
+ * @dest: destination to copy to
+ * @src: source to copy from
+ * @n: number to copy up to
+ * Return: returns destination for use
  */
 char *_strncpy(char *dest, char *src, int n)
 {
@@ -44,7 +49,12 @@ char *_strncpy(char *dest, char *src, int n)
 	dest[i] = '\0';
 	return (dest);
 }
-
+/**
+ * _strcat - string concatenate function
+ * @dest: destination to concat to
+ * @src: source to concat from
+ * Return: returns new concatenated string
+ */
 char *_strcat(char *dest, char *src)
 {
 	char *str_ret = dest;
@@ -64,6 +74,10 @@ char *_strcat(char *dest, char *src)
 	return (str_ret);
 }
 /**
+ * _strcpy - string copy function
+ * @dest: destination to copy to
+ * @src: source to copy from
+ * Return: returns destination for use
  */
 char *_strcpy(char *dest, char *src)
 {
@@ -74,5 +88,3 @@ char *_strcpy(char *dest, char *src)
 		dest[i] = src[i];
 	return (dest);
 }
-
-/*strcat / strncpy / strcat3*/

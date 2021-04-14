@@ -1,5 +1,7 @@
 #include "header.h"
 /**
+ * freetokens - frees a double pointer array
+ * @toks: double pointer to free
  */
 void freetokens(char **toks)
 {
