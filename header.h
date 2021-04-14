@@ -15,7 +15,7 @@ extern char **environ;
 
 /* prototypes */
 char *_strdup(char *str);
-char **tokenizer(char *str, char *delim, int ind);
+char **tokenizer(char *str, char *delim);
 char *_getenv(char *name);
 int _strlen(char *s);
 int _strcmp(char *s1, char *s2);
