@@ -5,14 +5,17 @@
  * @av: unused in main, arguments made
  * Return: returns 0, or exits via input
  */
-int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
+int main(void)
 {
 	char *input = NULL, **cmnds, *path = NULL;
 	size_t bufsize = 0;
+	int i_mode = 1;
 
-	while (1)
+
+	while (i_mode)
 	{
-		write(STDOUT_FILENO, "shellie$ ", 9);
+		if(isatty(0))
+			write(STDOUT_FILENO, "shellie$ ", 9);
 		if (getline(&input, &bufsize, stdin) == EOF)
 			break;
 		if (input == NULL)
@@ -30,7 +33,6 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 		/* this is where we call our tokenizer function */
 		cmnds = tokenizer(input, " ", 0);
 /* cmnds will be used to search for the shell command to execute in execve */
-/* how are we going to search for that? */
 		path = pathhandle(cmnds);
 		if (cmnds == NULL)
 		{
