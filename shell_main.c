@@ -14,11 +14,11 @@ int main(void)
 	signal(SIGINT, handler);
 	while (i_mode)
 	{
-		if (isatty(0))
+		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "shellie$ ", 9);
 		if (getline(&input, &bufsize, stdin) == EOF)
 		{
-			if (isatty(0))
+			if (isatty(STDIN_FILENO))/*pertains to non-Imode*/
 				write(STDOUT_FILENO, "\n", 1);
 			free(input), exit(0);
 		}
