@@ -17,7 +17,7 @@ char *pathhandle(char **input)
 	struct stat statad;
 
 	tmp = _getenv("PATH");
-	path = tokenizer(tmp, ":", 1);/*pass path var to tokenizer*/
+	path = tokenizer(tmp, ":");/*pass path var to tokenizer*/
 	if (path == NULL)
 		return (input[0]);
 	free(tmp);
