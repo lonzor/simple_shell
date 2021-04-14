@@ -2,7 +2,6 @@
 /**
  * main - main function, takes input, find command and calls execve()
  * Return: returns 0, or exits via input
- * 
  * Description: EVN and EXIT implementation. Pass data through tokenizer
  * and runs function to execute commands
  */
@@ -19,8 +18,9 @@ int main(void)
 			write(STDOUT_FILENO, "shellie$ ", 9);
 		if (getline(&input, &bufsize, stdin) == EOF)
 		{
-			write(STDOUT_FILENO, "\n", 1);
-			break;
+			if (isatty(0))
+				write(STDOUT_FILENO, "\n", 1);
+			free(input), exit(0);
 		}
 		if (input == NULL)
 			exit(0);
@@ -47,13 +47,13 @@ int main(void)
 	free(input);
 	return (0);
 }
-/*
- *
- *
- **/
+/**
+ * handler - signal handler to take care of shell not quiting with Ctrl + C
+ * @num: voided int
+ */
 void handler(int num)
 {
 	(void)num;
-	write(STDOUT_FILENO, "\n", 1);
-	write(STDOUT_FILENO, "shellie$ ", 9);	
+	write(STDOUT_FILENO, "\n", 1);/*need new line so it prints correctly*/
+	write(STDOUT_FILENO, "shellie$ ", 9);
 }

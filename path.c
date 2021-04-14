@@ -83,7 +83,7 @@ int fullpath(char **path, char **input)
  * @str: string to check and malloc space for
  * Return: returns the string back to fullpath for use
  *
- * Description: A helper function for fullpath(). Counts slashes in 
+ * Description: A helper function for fullpath(). Counts slashes in
  * string in order to know how many bytes are needed for malloc.
  */
 char *checkpath(char *str)

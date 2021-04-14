@@ -10,26 +10,25 @@ char *_strcat3(char *dest, char *middle, char *src)
 {
 	if (dest && middle && src)
 	{
-		_strcat(dest, middle);
-		_strcat(dest, src);
+		_strcat(dest, middle);/*cats middle to end of dest*/
+		_strcat(dest, src);/*cats src to end of prev cat str*/
 	}
 	else
 		return (NULL);
 	return (dest);
 }
 /**
- * _realloc - realloc funciton
- * @ptr:
- * @old_size:
- * @new_size:
- * Return: returns tmp as new string to use
+ * _realloc - reallocates memory from old size to new size
+ * @ptr: pointer array to what needs memory reallocated
+ * @old_size: the current size in bytes
+ * @new_size: the space/size needed
+ * Return: returns tmp as newly realocated  string to use
  */
 char *_realloc(char *ptr, unsigned int old_size, unsigned int new_size)
 {
 	char *tmp = NULL;
-	size_t i = 0;
 
-	if (new_size == old_size)
+	if (new_size == old_size)/*no new sizing is needed*/
 		return (ptr);
 
 	if (new_size == 0 && ptr != NULL)
@@ -48,12 +47,7 @@ char *_realloc(char *ptr, unsigned int old_size, unsigned int new_size)
 	if (tmp == NULL)
 		return (NULL);
 
-	while (ptr[i])
-	{
-		tmp[i] = ptr[i];
-		i++;
-	}
-	tmp[i] = '\0';
+	_strcpy(tmp, ptr);
 	free(ptr);
 	return (tmp);
 }
