@@ -21,13 +21,12 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 			exit(0);
 		if (_strcmp(input, "env\n\0") == 0)
 		{
-			/*free here */
+			free(input);
 			printenv();
 			continue;
 		}
 		if (_strcmp(input, "exit\n\0") == 0)
 		{
-			/* free here */
 			break;
 		}
 		/* this is where we call our tokenizer function */
@@ -35,6 +34,13 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 /* cmnds will be used to search for the shell command to execute in execve */
 /* how are we going to search for that? */
 		path = pathhandle(cmnds);
+		if (cmnds == NULL)
+		{
+			free(input);
+			free(cmnds);
+			cmnds = NULL;
+			continue;
+		}
 		executecmd(cmnds, path, input);
 		freetokens(cmnds);
 		free(input);

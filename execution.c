@@ -1,5 +1,9 @@
 #include "header.h"
 /**
+ * executecmd - function that forks and executes from main
+ * @cmnds: commands from main
+ * @path: path from main
+ * @input: input from main
  */
 void executecmd(char **cmnds, char *path, char *input)
 {
@@ -11,6 +15,7 @@ void executecmd(char **cmnds, char *path, char *input)
 	free(cmnds[0]);
 	cmnds[0] = tmp;
 	child_pid = fork();
+
 	if (child_pid == -1)
 	{
 		perror("child_pid error");
@@ -22,7 +27,7 @@ void executecmd(char **cmnds, char *path, char *input)
 			perror("WRONG");
 			free(input);
 			freetokens(cmnds);
-			exit(0);
+			exit(127);
 		}
 	}
 	else

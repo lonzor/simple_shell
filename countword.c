@@ -1,5 +1,9 @@
 #include "header.h"
 /**
+ * countword - counts the number of words in a string, per delimiter
+ * @str: string to cound words in
+ * @delim: what to delimit words by, usually a space
+ * Return: returns total number of words
  */
 size_t countword(char *str, char delim)
 {

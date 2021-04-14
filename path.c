@@ -12,13 +12,11 @@ char *pathhandle(char **input)
 	struct stat statad;
 
 	/* want to stat here, will return "/bin/ls ..." to main func to execve*/
-
 	tmp = _getenv("PATH");
 	/* store tokens in path*/
 	path = tokenizer(tmp, ":", 1);
 	if (path == NULL)
 		return (input[0]);
-
 	free(tmp);
 	tmp = NULL;
 	/*check if user specified full path */
@@ -30,9 +28,13 @@ char *pathhandle(char **input)
 	/* if not, append input[0] to each path */
 	for (i = 0; path[i]; i++)
 	{
-
 		len = _strlen(path[i]);
 		path[i] = _realloc(path[i], len + 1, len + len2 + 2);
+		if (path[i] == NULL)
+		{
+			freetokens(path);
+			return (NULL);
+		}
 		_strcat3(path[i], "/", input[0]);
 	}
 	/* loop through path , use stat to check if command exists */
@@ -47,18 +49,27 @@ char *pathhandle(char **input)
 	/* if valid command found, return path to command */
 	if (indicator == 1)
 	{
-		len = _strlen(path[i]);
-		input[0] = _realloc(input[0], len2 + 1, len + 1);
-		_strcpy(input[0], path[i]);
-		freetokens(path);
-		return (input[0]);
+		if(access(path[i], X_OK) == 0)
+		{
+			len = _strlen(path[i]);
+			input[0] = _realloc(input[0], len2 + 1, len + 1);
+			_strcpy(input[0], path[i]);
+			freetokens(path);
+			return (input[0]);
+		}
+
 	}
 	/* return user input otherwise */
 	freetokens(path);
 	return (input[0]);
 }
-
-int fullpath(char **path, char**input)
+/**
+ * fullpath - checks for full path, if not given by user input
+ * @path: tokenized path from pathhandle
+ * @input: input from main to check for path
+ * Return: returns 1 if the comparison is true, 0 if not
+ */
+int fullpath(char **path, char **input)
 {
 	int i = 0;
 	char *tmp = checkpath(input[0]);
@@ -76,7 +87,11 @@ int fullpath(char **path, char**input)
 	free(tmp);
 	return (0);
 }
-
+/**
+ * checkpath - helper func for tmp variable in fullpath
+ * @str: string to check and malloc space for
+ * Return: returns the string back to fullpath for use
+ */
 char *checkpath(char *str)
 {
 	int i = 0, count1 = 0, count2 = 0, count3 = 0;
@@ -89,7 +104,7 @@ char *checkpath(char *str)
 		i++;
 	}
 	if (count1 == 0)
-		return (NULL);
+		return (NULL); /*no / means no path*/
 
 	for (i = 0; str[i]; i++)
 	{

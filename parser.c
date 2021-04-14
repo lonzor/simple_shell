@@ -3,9 +3,10 @@
  * tokenizer - tokenizes a string given by the delimiters given
  * @str: string given to tokenize
  * @delim: delimiters given to tokenize string with
+ * @ind: indicator variable to help with
  * Return: returns input as tokens for use
  */
-char **tokenizer(char *str, char *delim, int ind)
+char **tokenizer(char *str, char *delim, int ind __attribute__((unused)))
 {
 	char *token = NULL;
 	int i = 0, len = 0;
@@ -13,7 +14,7 @@ char **tokenizer(char *str, char *delim, int ind)
 	size_t count = 0;
 
 	len = _strlen(str);
-	if (ind == 0)
+	if (str[len - 1] == '\n')
 		str[len - 1] = '\0';
 	count = countword(str, delim[0]);
 	toks = malloc(sizeof(char *) * (count + 1));
