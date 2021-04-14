@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <signal.h>
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -31,5 +32,6 @@ char *pathhandle(char **input);
 size_t countword(char *str, char delim);
 int _strncmp(const char *s1, const char *s2, int n);
 void executecmd(char **cmnds, char *path, char *input);
+void handler(int num);
 
 #endif

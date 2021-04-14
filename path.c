@@ -1,8 +1,13 @@
 #include "header.h"
 /**
- * pathhandle - function for handling PATH, currently unused
+ * pathhandle - function for handling PATH
  * @input: user's input, modified to pass back to execeve in main
  * Return: will return full path of user's input, if found
+ *
+ * Description: This function gets PATH and tokenizes it
+ * with a colon. Runs input checking functions to verify
+ * if user entered full paht and searches all directories
+ * using stat().
  */
 char *pathhandle(char **input)
 {
@@ -11,63 +16,49 @@ char *pathhandle(char **input)
 	size_t i = 0, len = 0, len2 = _strlen(input[0]), indicator = 0;
 	struct stat statad;
 
-	/* want to stat here, will return "/bin/ls ..." to main func to execve*/
 	tmp = _getenv("PATH");
-	/* store tokens in path*/
-	path = tokenizer(tmp, ":", 1);
+	path = tokenizer(tmp, ":", 1);/*pass path var to tokenizer*/
 	if (path == NULL)
 		return (input[0]);
 	free(tmp);
-	tmp = NULL;
-	/*check if user specified full path */
-	/* if match found, return input[0]*/
-	if (fullpath(path, input) == 1)
-	{
+	if (fullpath(path, input) == 1)/*if 1 then full path from user*/
 		return (input[0]);
-	}
-	/* if not, append input[0] to each path */
 	for (i = 0; path[i]; i++)
 	{
-		len = _strlen(path[i]);
+		len = _strlen(path[i]);/*realloc needed for cat3 space*/
 		path[i] = _realloc(path[i], len + 1, len + len2 + 2);
 		if (path[i] == NULL)
-		{
-			freetokens(path);
-			return (NULL);
-		}
-		_strcat3(path[i], "/", input[0]);
+		{freetokens(path);
+			return (NULL); }
+		_strcat3(path[i], "/", input[0]);/*cats path w/input*/
 	}
-	/* loop through path , use stat to check if command exists */
 	for (i = 0; path[i]; i++)
 	{
-		if (stat(path[i], &statad) == 0)
-		{
-			indicator = 1;
-			break;
-		}
+		if (stat(path[i], &statad) == 0)/*looks for path w/input*/
+		{indicator = 1;/*this is if finds match*/
+			break; }
 	}
-	/* if valid command found, return path to command */
-	if (indicator == 1)
+	if (indicator == 1)/*found match*/
 	{
-		if(access(path[i], X_OK) == 0)
+		if (access(path[i], X_OK) == 0)/*executable access yes*/
 		{
 			len = _strlen(path[i]);
 			input[0] = _realloc(input[0], len2 + 1, len + 1);
-			_strcpy(input[0], path[i]);
-			freetokens(path);
+			_strcpy(input[0], path[i]), freetokens(path);
 			return (input[0]);
 		}
-
 	}
-	/* return user input otherwise */
 	freetokens(path);
-	return (input[0]);
+	return (input[0]);/*find no match, probably not a cmnd*/
 }
 /**
  * fullpath - checks for full path, if not given by user input
  * @path: tokenized path from pathhandle
  * @input: input from main to check for path
  * Return: returns 1 if the comparison is true, 0 if not
+ *
+ * Description: Checks what was returned from checkpath() and compares
+ * it to what we got for our path variable.
  */
 int fullpath(char **path, char **input)
 {
@@ -91,31 +82,34 @@ int fullpath(char **path, char **input)
  * checkpath - helper func for tmp variable in fullpath
  * @str: string to check and malloc space for
  * Return: returns the string back to fullpath for use
+ *
+ * Description: A helper function for fullpath(). Counts slashes in 
+ * string in order to know how many bytes are needed for malloc.
  */
 char *checkpath(char *str)
 {
-	int i = 0, count1 = 0, count2 = 0, count3 = 0;
+	int i = 0, count1 = 0, count2 = 0, chars_sum = 0;
 	char *tmp = NULL;
 
-	while (str[i])
+	while (str[i])/*counts total slashes in str*/
 	{
 		if (str[i] == '/')
 			count1++;
 		i++;
 	}
 	if (count1 == 0)
-		return (NULL); /*no / means no path*/
-
+		return (NULL); /*no slash means no path*/
 	for (i = 0; str[i]; i++)
 	{
-		if (str[i] == '/')
+		if (str[i] == '/')/*count slashes again*/
 			count2++;
 		if (count1 == count2)
 			break;
-
-		count3++;
+		chars_sum++; /*countall chars include /'s for bytes to mal*/
 	}
-	tmp = malloc(sizeof(char) * count3 + 1);
-	_strncpy(tmp, str, count3);
+	tmp = malloc(sizeof(char) * chars_sum + 1);
+	if (tmp == NULL)
+		return (NULL);
+	_strncpy(tmp, str, chars_sum);/*gets copy of tmp w/correct size*/
 	return (tmp);
 }
