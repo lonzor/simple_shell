@@ -31,7 +31,7 @@ int main(void)
 		}
 		if (_strcmp(input, "exit\n\0") == 0)
 			break;
-		cmnds = tokenizer(input, " ", 0); /*cmnds via tokenizer()*/
+		cmnds = tokenizer(input, " "); /*cmnds via tokenizer()*/
 		path = pathhandle(cmnds); /*get path via tokenized cmnds*/
 		if (cmnds == NULL) /*if NULL isn't found do all the free*/
 		{
