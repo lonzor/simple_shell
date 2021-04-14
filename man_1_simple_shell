@@ -1,0 +1,19 @@
+.\" Manpage for nuseradd.
+.\" Contact vivek@nixcraft.net.in to correct errors or typos.
+.TH man 1 "4/14/2021" "1.0" "shellie man page"
+.SH NAME
+Shellie the Simple Shell!
+.SH SYNOPSIS
+#include "header.h"
+.B prototype: int main(void)
+.SH DESCRIPTION
+.PP
+Shellie is a simple shell we created for our final project of the first trimester at Holberton School. Input is taken from user input via the keyboard. Our created shell takes the same commands and functions as the "real" shell
+.SH EXAMPLES
+shellie$ echo hello
+.SH SEE ALSO
+sh(1), bash(1)
+.SH BUGS
+Multiple spaces as input do not work.
+.SH AUTHOR
+Lonzo Rust & Garrison Shoemake, Cohort 14, Holberton School
