@@ -9,12 +9,10 @@ int main(int ac __attribute__((unused)), char **av __attribute__((unused)))
 {
 	char *input = NULL, **cmnds, *path = NULL;
 	size_t bufsize = 0;
-	int i_mode = isatty(STDIN_FILENO);
 
-	while (i_mode)
+	while (1)
 	{
-		if (i_mode == 1)
-			write(STDOUT_FILENO, "shellie$ ", 9);
+		write(STDOUT_FILENO, "shellie$ ", 9);
 		if (getline(&input, &bufsize, stdin) == EOF)
 			break;
 		if (input == NULL)
